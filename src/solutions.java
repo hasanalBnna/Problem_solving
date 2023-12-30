@@ -1,5 +1,8 @@
 import java.io.PrintStream;
 import java.util.HashSet;
+import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class solutions {
     public solutions() {
@@ -95,6 +98,70 @@ public class solutions {
         int[] arr5 = new int[]{15, 8, 10, 30, 5, 1, 14};//20. Find Minimum and Maximum: Write a program to find the minimum and maximum values in an array.
         System.out.println("Minimum value: " + findMin(arr5));
         System.out.println("Maximum value: " + findMax(arr5));
+        Scanner scanner = new Scanner(System.in);//21. Calculate the simple interest for given principal, rate of interest, and time.
+
+        System.out.println("Enter the principal amount: ");
+        double principal = scanner.nextDouble();
+
+        System.out.println("Enter the rate of interest: ");
+        double rateOfInterest = scanner.nextDouble();
+
+        System.out.println("Enter the time period (in years): ");
+        double timePeriod = scanner.nextDouble();
+
+        double simpleInterest = calculateSimpleInterest(principal, rateOfInterest, timePeriod);
+
+        System.out.println("The simple interest is: " + simpleInterest);
+        Scanner scanner2 = new Scanner(System.in);//22  Write a program to convert temperatures from Celsius to Fahrenheit and vice versa.
+
+        System.out.println("Choose a conversion option: ");
+        System.out.println("1. Celsius to Fahrenheit");
+        System.out.println("2. Fahrenheit to Celsius");
+        int choice = scanner2.nextInt();
+
+        if (choice == 1) {
+            System.out.println("Enter the temperature in Celsius: ");
+            double celsius = scanner2.nextDouble();
+            double fahrenheit = celsiusToFahrenheit(celsius);
+            System.out.println("The temperature in Fahrenheit is: " + fahrenheit);
+        } else if (choice == 2) {
+            System.out.println("Enter the temperature in Fahrenheit: ");
+            double fahrenheit = scanner2.nextDouble();
+            double celsius = fahrenheitToCelsius(fahrenheit);
+            System.out.println("The temperature in Celsius is: " + celsius);
+        } else {
+            System.out.println("Invalid choice. Please try again.");
+        }
+        Scanner scanner3 = new Scanner(System.in);//23. Write a program that checks whether the input character is an uppercase letter, lowercase letter, a digit, or a special 24. character.
+
+        System.out.println("Enter a character: ");
+        char character = scanner3.next().charAt(0);
+
+        if (Character.isUpperCase(character)) {
+            System.out.println("The character is an uppercase letter.");
+        } else if (Character.isLowerCase(character)) {
+            System.out.println("The character is a lowercase letter.");
+        } else if (Character.isDigit(character)) {
+            System.out.println("The character is a digit.");
+        } else {
+            System.out.println("The character is a special character.");
+        }
+        int[] numbers = {1, 4, 2, 5, 8, 9, 3};//24. Write a program to find the second largest number in a given array.
+        int secondLargestNumber = findSecondLargestNumber(numbers);
+
+        if (secondLargestNumber != -1) {
+            System.out.println("The second largest number is: " + secondLargestNumber);
+        } else {
+            System.out.println("There is no second largest number in the array.");
+        }
+        String str5 = "Hello World, it's year 2022. 1 + 1 = 2, and 10 * 10 = 100";//25. Given a string containing both letters and numbers, find the sum of all the numbers in the string.
+        int sum = findSumOfNumbersInString(str5);
+
+        if (sum != -1) {
+            System.out.println("The sum of all the numbers in the string is: " + sum);
+        } else {
+            System.out.println("There are no numbers in the string.");
+        }
     }
 
     public static int sum(int[] ara) {
@@ -319,4 +386,41 @@ public class solutions {
 
         return max;
     }
+    private static double calculateSimpleInterest(double principal, double rateOfInterest, double timePeriod) {
+        return (principal * rateOfInterest * timePeriod) / 100;
+    }
+    private static double celsiusToFahrenheit(double celsius) {
+        return (celsius * 9 / 5) + 32;
+    }
+
+    private static double fahrenheitToCelsius(double fahrenheit) {
+        return (fahrenheit - 32) * 5 / 9;
+    }
+    public static int findSecondLargestNumber(int[] numbers) {
+        int maxNumber = -1;
+        int secondMaxNumber = -1;
+
+        for (int number : numbers) {
+            if (number > maxNumber) {
+                secondMaxNumber = maxNumber;
+                maxNumber = number;
+            } else if (number > secondMaxNumber && number != maxNumber) {
+                secondMaxNumber = number;
+            }
+        }
+
+        return secondMaxNumber;
+    }
+    public static int findSumOfNumbersInString(String str5) {
+        int sum = 0;
+        Pattern pattern = Pattern.compile("-?\\d+");
+        Matcher matcher = pattern.matcher(str5);
+
+        while (matcher.find()) {
+            sum += Integer.parseInt(matcher.group());
+        }
+
+        return sum == 0 ? -1 : sum;
+    }
 }
+
